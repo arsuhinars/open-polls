@@ -1,0 +1,8 @@
+{
+  "name": "open-polls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.ts",
+  "author": "arsuhinars",
+  "license": "MIT"
+}

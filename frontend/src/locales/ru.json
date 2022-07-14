@@ -1,0 +1,69 @@
+{
+  "home": {
+    "description_1": "Создавайте и делитесь опросами по всему Интернету!",
+    "description_2": "Заинтересовались? Вы можете попробовать прямо сейчас!",
+    "create_poll": "Создать опрос",
+    "login_title": "Вы также можете войти на сайт с помощью аккаунта ВКонтакте",
+    "user_welcome": "С возвращением, {userName}!"
+  },
+  "login": "Войти",
+  "copyright": "Арсений Федоров",
+  "title": "Open Polls",
+  "profile": "Личный кабинет",
+  "logout": "Выйти",
+  "page_was_not_found": "Страница не найдена!",
+  "go_to_main_page": "Вернуться на главную страницу",
+  "authorization_required": "Для продолжения требуется авторизация",
+  "author": "Автор",
+  "created_on": "Создан",
+  "post_edit": {
+    "post_title_input": "Название опроса",
+    "save_post": "Сохранить опрос",
+    "delete_poll_modal_title": "Удалить опрос",
+    "delete_poll_modal_description": "Вы уверены, что хотите удалить этот опрос? Это действие нельзя будет отменить.",
+    "title": "Редактор опросов",
+    "new_post_title": "Создать новый опрос",
+    "has_invalid_fields_feedback": "Опрос содержит поля с ошибками",
+    "empty_polls_feedback": "Опрос не может быть пустым"
+  },
+  "poll_name_input": "Название",
+  "poll_option_input": "Варианты ответа",
+  "poll_style": "Оформление",
+  "close": "Закрыть",
+  "validation_errors": {
+    "required": "Это поле обязательно к заполнению",
+    "required_plural": "Эти поля обязательны к заполнению",
+    "invalid_format": "Поле должно быть указано в верном формате",
+    "empty_poll_options": "Варианты ответа должны содержать хотя бы одно значение"
+  },
+  "poll_max_chosen_options_count": "Максимум {n} вариантов | Максимум {n} вариант | Максимум {n} варианта | Максимум {n} вариантов",
+  "ok": "Окей",
+  "errors": {
+    "vk_login_error_description": "Произошла ошибка авторизации ВК. Подождите некоторое время и попробуйте еще раз.",
+    "vk_login_error_title": "Ошибка авторизации ВК",
+    "unknown_error_title": "Неизвестная ошибка",
+    "unknown_error_description": "Произошла неизвестная ошибка. Подождите некоторое время и попробуйте еще раз.",
+    "unauthorized_error_description": "Для продолжения вам необходимо войти в свой аккаунт",
+    "unauthorized_error_title": "Необходима авторизация",
+    "not_found_error_title": "Содержимое не было найдено",
+    "not_found_error_description": "Не удалось найти содержимое. Возможно оно было удалено или перемещенно.",
+    "forbidden_title": "Доступ запрещен",
+    "forbidden_description": "Доступ к данному содержимому был запрещен."
+  },
+  "publish": "Опубликовать",
+  "unpublish": "Убрать публикацию",
+  "profile_view": {
+    "title": "Ваши опросы",
+    "delete_post_modal_title": "Удалить опрос",
+    "delete_post_modal_description": "Вы уверены, что хотите удалить опрос {pollName}? Вы также потеряете все результаты опроса! Это действие нельзя будет отменить!",
+    "empty_posts_list": "Здесь пока что пусто",
+    "copy_post_link": "Скопировать ссылку на опрос",
+    "copy_link_description": "Выделите ссылку и скопируйте в буфер обмена"
+  },
+  "no": "Нет",
+  "yes": "Да",
+  "poll_answers_count": "Всего ответов: {answersCount}",
+  "post_view": {
+    "title": "Опрос"
+  }
+}

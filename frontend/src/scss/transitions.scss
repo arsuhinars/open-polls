@@ -1,0 +1,58 @@
+
+.scale-enter-active,
+.scale-leave-active,
+.scale-reverse-enter-active,
+.scale-reverse-leave-active {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  transform: scale(0.95, 0.95);
+  opacity: 0;
+}
+
+.scale-reverse-enter-from,
+.scale-reverse-leave-to {
+  transform: scale(1.1, 1.1);
+  opacity: 0;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0 !important;
+}
+
+
+.modal-enter-active .modal-dialog,
+.modal-leave-active .modal-dialog {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.modal-enter-from .modal-dialog,
+.modal-leave-to .modal-dialog {
+  transform: scale(1.1, 1.1);
+  opacity: 0;
+}
+
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease, opacity 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
+.list-leave-active {
+  position: absolute;
+}

@@ -1,0 +1,44 @@
+@import "~bootstrap/scss/bootstrap";
+@import "./variables";
+@import "./transitions";
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  width: $main-width;
+  margin: auto;
+  margin-top: $spacer * 1.5;
+  text-align: center;
+  flex-grow: 1;
+  @media (max-width: $main-width) {
+    width: auto;
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
+}
+
+.default-input-width {
+  min-width: $default-input-width;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.icon-btn {
+  font-size: $btn-line-height * $btn-font-size;
+  line-height: 0;
+  padding: $btn-padding-y $btn-padding-y;
+}
+
+.fs-7 {
+  font-size: $font-size-base * 0.9;
+}
