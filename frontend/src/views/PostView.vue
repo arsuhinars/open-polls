@@ -36,6 +36,17 @@
   <footer-element />
 
   <modal-dialog
+    ref="unauthorizedModal"
+    :title="$t('errors.unauthorized_error_title')"
+    :buttons="[
+      { type: ModalButtonType.Secondary, text: $t('close') },
+      { type: ModalButtonType.Primary, text: $t('login') },
+    ]"
+    @buttonClick="onUnauthorizedModalClick"
+  >
+    {{ $t("errors.unauthorized_error_description") }}
+  </modal-dialog>
+  <modal-dialog
     ref="errorModal"
     :title="errorTitle"
     :buttons="[{ type: ModalButtonType.Primary, text: $t('ok') }]"
@@ -55,6 +66,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { ErrorTypes } from "open-polls";
+import auth from "@/auth";
 import { getErrorTitleKey, getErrorDescriptionKey } from "../utils";
 import { ModalButtonType } from "../types";
 import ModalDialog from "../components/ModalDialog.vue";
@@ -83,6 +95,9 @@ export default defineComponent({
     };
   },
   computed: {
+    unauthorizedModal(): typeof ModalDialog {
+      return this.$refs.unauthorizedModal as typeof ModalDialog;
+    },
     errorModal(): typeof ModalDialog {
       return this.$refs.errorModal as typeof ModalDialog;
     },
@@ -119,7 +134,7 @@ export default defineComponent({
       }
     },
     async fetchPostOptionsChoices() {
-      if (!this.post) {
+      if (!this.post || !auth.isAuthorized) {
         return;
       }
 
@@ -157,6 +172,11 @@ export default defineComponent({
     },
     async savePostOptionsChoices() {
       if (this.post == null) {
+        return;
+      }
+
+      if (!auth.isAuthorized) {
+        this.unauthorizedModal.isShowed = true;
         return;
       }
 
@@ -218,6 +238,12 @@ export default defineComponent({
 
       this.pollsData[pollIndex].optionChoices = optionChoices;
       this.savePostOptionsChoices();
+    },
+    onUnauthorizedModalClick(buttonIndex: number) {
+      this.unauthorizedModal.isShowed = false;
+      if (buttonIndex == 1) {
+        auth.login();
+      }
     },
   },
   created() {

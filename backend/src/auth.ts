@@ -81,8 +81,10 @@ async function handleLogin(request: Request) {
 }
 
 auth.get('/auth/login', (req, res) => {
-  const redirectURL = new URL('/auth/callback', config.host);
-  redirectURL.searchParams.append('redirectPath', req.query.redirectPath?.toString() || '');
+  const baseURL = `${req.protocol}://${req.get('host')}/` as string;
+
+  const redirectURL = new URL('/auth/callback', baseURL);
+  redirectURL.searchParams.append('redirect_path', req.query.redirect_path?.toString() || '');
 
   req.session.redirectURL = redirectURL.href;
 
@@ -122,7 +124,7 @@ auth.get('/auth/callback', (req, res) => {
         return handleLogin(req);
       })
       .then(() => {
-        res.redirect(req.query.redirectPath?.toString() || '/');
+        res.redirect(req.query.redirect_path?.toString() || '/');
       })
       .catch((error) => {
         if (error instanceof AxiosError) {

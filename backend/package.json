@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && ts-node-dev . --watch",
+    "start": "ts-node-dev .",
     "lint": "eslint . --fix"
   },
   "author": "arsuhinars",

@@ -2,7 +2,7 @@ import User from "./models/user";
 import router from "./router";
 
 function login() {
-  document.location.href = `/auth/login?redirectPath=${encodeURIComponent(
+  document.location.href = `/auth/login?redirect_path=${encodeURIComponent(
     document.location.href
   )}`;
 }

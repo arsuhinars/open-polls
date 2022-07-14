@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/unauthorized",
     name: "unauthorizedPage",
-    component: import("../views/UnauthorizedView.vue"),
+    component: () => import("../views/UnauthorizedView.vue"),
     meta: {
       title: i18n.global.t("authorization_required"),
     },
@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)",
     name: "notFoundPage",
-    component: import("../views/NotFoundView.vue"),
+    component: () => import("../views/NotFoundView.vue"),
     meta: {
       title: i18n.global.t("page_was_not_found"),
     },

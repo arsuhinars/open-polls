@@ -15,6 +15,7 @@ const app = express();
 
 console.log();
 console.log('\x1b[34mopen-polls \x1b[0mby \x1b[33marsuhinars\x1b[0m');
+console.log('\x1b[44mhttps://github.com/arsuhinars/open-polls\x1b[0m');
 console.log();
 
 initDatabase()

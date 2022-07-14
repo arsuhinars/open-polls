@@ -183,10 +183,12 @@ api.route('/api/post/')
     try {
       const post = await Post.findOne({ where: { id: jsonPost.id }, transaction: t });
       if (post == null) {
+        await t.rollback();
         res.status(404).json({ errorCode: ErrorTypes.NOT_FOUND_ERROR });
         return;
       }
       if (post.authorId !== getUser(req)?.id) {
+        await t.rollback();
         res.status(403).json({ errorCode: ErrorTypes.FORBIDDEN });
         return;
       }
@@ -257,10 +259,12 @@ api.route('/api/post/')
     try {
       const post = await Post.findOne({ where: { id: postId }, transaction: t });
       if (post == null) {
+        await t.rollback();
         res.status(404).json({ errorCode: ErrorTypes.NOT_FOUND_ERROR });
         return;
       }
       if (post.authorId !== getUser(req)?.id) {
+        await t.rollback();
         res.status(403).json({ errorCode: ErrorTypes.FORBIDDEN });
         return;
       }
@@ -310,10 +314,12 @@ api.get('/api/set_post_publishing_state/', async (req, res) => {
   try {
     const post = await Post.findOne({ where: { id: parseInt(req.query.id.toString(), 10) } });
     if (post == null) {
+      t.rollback();
       res.status(404).json({ errorCode: ErrorTypes.NOT_FOUND_ERROR });
       return;
     }
     if (post.authorId !== getUser(req)?.id) {
+      t.rollback();
       res.status(403).json({ errorCode: ErrorTypes.FORBIDDEN });
       return;
     }
@@ -359,6 +365,11 @@ api.route('/api/post_options_choices')
         return;
       }
 
+      if (!post.isPublished && (!isAuthorized(req) || getUser(req)?.id !== post.authorId)) {
+        res.status(403).json({ errorCode: ErrorTypes.FORBIDDEN });
+        return;
+      }
+
       const polls = await Poll.findAll({ where: { postId } });
       await Promise.all(polls.map(async (poll) => {
         const optionsChoices = await PollOptionChoice.findAll({
@@ -398,7 +409,14 @@ api.route('/api/post_options_choices')
     try {
       const post = await Post.findOne({ where: { id: json.postId }, transaction: t });
       if (post == null) {
+        await t.rollback();
         res.status(404).json({ errorCode: ErrorTypes.NOT_FOUND_ERROR });
+        return;
+      }
+
+      if (!post.isPublished && (!isAuthorized(req) || getUser(req)?.id !== post.authorId)) {
+        await t.rollback();
+        res.status(403).json({ errorCode: ErrorTypes.FORBIDDEN });
         return;
       }
 
@@ -421,19 +439,19 @@ api.route('/api/post_options_choices')
       }));
 
       await Promise.all(json.postOptionsChoices.map(async (optionChoice: FrontendOptionChoice) => {
-        if (pollsMap.has(optionChoice.pollId)) {
-          const pollData = pollsMap.get(optionChoice.pollId);
-          const { optionIndex } = optionChoice;
-          if (optionIndex >= 0
-            && optionIndex < (pollData?.poll.options?.length ?? 0)
-            && !pollData?.optionsChoices.has(optionIndex)) {
-            pollData?.optionsChoices.add(optionIndex);
-            await PollOptionChoice.create({
-              pollId: optionChoice.pollId,
-              userId: getUser(req)?.id || 0,
-              optionIndex,
-            }, { transaction: t });
-          }
+        const pollData = pollsMap.get(optionChoice.pollId);
+        const { optionIndex } = optionChoice;
+        if (pollData
+          && optionIndex >= 0
+          && optionIndex < pollData.poll.options.length
+          && !pollData.optionsChoices.has(optionIndex)
+          && pollData.optionsChoices.size < pollData.poll.maxChosenOptionsCount) {
+          pollData.optionsChoices.add(optionIndex);
+          await PollOptionChoice.create({
+            pollId: optionChoice.pollId,
+            userId: getUser(req)?.id || 0,
+            optionIndex,
+          }, { transaction: t });
         }
       }));
 

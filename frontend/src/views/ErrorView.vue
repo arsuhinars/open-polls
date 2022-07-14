@@ -3,7 +3,10 @@
   <main>
     <h2>{{ errorTitle }}</h2>
     <p class="mt-2">{{ errorDescription }}</p>
-    <button @click="auth.login()" class="btn btn-primary mt-3">
+    <button
+      @click="auth.login()"
+      class="btn btn-primary default-input-width mt-3"
+    >
       {{ $t("go_to_main_page") }}
     </button>
   </main>

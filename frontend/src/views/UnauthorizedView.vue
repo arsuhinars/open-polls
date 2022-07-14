@@ -2,7 +2,10 @@
   <header-element />
   <main>
     <h2>{{ $t("authorization_required") }}</h2>
-    <button @click="auth.login()" class="btn btn-primary mt-3">
+    <button
+      @click="auth.login()"
+      class="btn btn-primary default-input-width mt-3"
+    >
       {{ $t("login") }}
     </button>
   </main>
