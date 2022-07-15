@@ -64,6 +64,7 @@
   "yes": "Да",
   "poll_answers_count": "Всего ответов: {answersCount}",
   "post_view": {
-    "title": "Опрос"
+    "title": "Опрос",
+    "unauthorized_save_modal_description": "Для сохранения ответа вам необходимо войти в свой аккаунт"
   }
 }

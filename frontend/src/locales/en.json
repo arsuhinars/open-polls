@@ -64,6 +64,7 @@
   "yes": "Yes",
   "poll_answers_count": "Answers count: {resultsCount}",
   "post_view": {
-    "title": "Poll"
+    "title": "Poll",
+    "unauthorized_save_modal_description": "You must be logged in to save your answer."
   }
 }

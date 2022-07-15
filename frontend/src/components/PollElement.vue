@@ -333,6 +333,18 @@ $foreground-color-transparent: rgba($foreground-color, 0.4);
 .poll-style-2 {
   background: linear-gradient(rgb(204, 204, 25), rgb(230, 130, 0));
 }
+
+.poll-style-3 {
+  background: linear-gradient(rgb(119, 0, 255), rgb(78, 58, 167));
+}
+
+.poll-style-4 {
+  background: linear-gradient(rgb(230, 0, 0), rgb(179, 22, 99));
+}
+
+.poll-style-5 {
+  background: linear-gradient(rgb(146, 0, 230), rgb(179, 22, 139));
+}
 </style>
 
 <script lang="ts">
@@ -341,7 +353,7 @@ import type { PropType } from "vue";
 import { findSum } from "@/utils";
 import Poll from "@/models/poll";
 
-const pollStylesCount = 3;
+const pollStylesCount = 6;
 
 export default defineComponent({
   name: "PollElement",

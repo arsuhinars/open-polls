@@ -36,7 +36,7 @@
   <footer-element />
 
   <modal-dialog
-    ref="unauthorizedModal"
+    ref="unauthorizedSaveModal"
     :title="$t('errors.unauthorized_error_title')"
     :buttons="[
       { type: ModalButtonType.Secondary, text: $t('close') },
@@ -44,7 +44,7 @@
     ]"
     @buttonClick="onUnauthorizedModalClick"
   >
-    {{ $t("errors.unauthorized_error_description") }}
+    {{ $t("post_view.unauthorized_save_modal_description") }}
   </modal-dialog>
   <modal-dialog
     ref="errorModal"
@@ -95,8 +95,8 @@ export default defineComponent({
     };
   },
   computed: {
-    unauthorizedModal(): typeof ModalDialog {
-      return this.$refs.unauthorizedModal as typeof ModalDialog;
+    unauthorizedSaveModal(): typeof ModalDialog {
+      return this.$refs.unauthorizedSaveModal as typeof ModalDialog;
     },
     errorModal(): typeof ModalDialog {
       return this.$refs.errorModal as typeof ModalDialog;
@@ -171,12 +171,7 @@ export default defineComponent({
       }
     },
     async savePostOptionsChoices() {
-      if (this.post == null) {
-        return;
-      }
-
-      if (!auth.isAuthorized) {
-        this.unauthorizedModal.isShowed = true;
+      if (this.post == null || !auth.isAuthorized) {
         return;
       }
 
@@ -218,6 +213,11 @@ export default defineComponent({
       this.errorModal.isShowed = true;
     },
     onOptionChoicesChanged(pollIndex: number, optionChoices: Array<number>) {
+      if (!auth.isAuthorized) {
+        this.unauthorizedSaveModal.isShowed = true;
+        return;
+      }
+
       const oldOptionChoices = this.pollsData[pollIndex].optionChoices;
       const poll = this.post?.polls[pollIndex];
       if (poll) {
@@ -240,7 +240,7 @@ export default defineComponent({
       this.savePostOptionsChoices();
     },
     onUnauthorizedModalClick(buttonIndex: number) {
-      this.unauthorizedModal.isShowed = false;
+      this.unauthorizedSaveModal.isShowed = false;
       if (buttonIndex == 1) {
         auth.login();
       }
